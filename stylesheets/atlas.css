@@ -854,5 +854,18 @@ div#streetview_window {
     fill-opacity: 1;
 }
 
+/*____________________________*/
+
+/* Grıd lınes for quantiles */
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+
+.grid path {
+      stroke-width: 0;
+}
+
 
 

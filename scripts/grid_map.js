@@ -56,7 +56,7 @@ var busTypes = ['beauty','culture','education','entertainment',
 
 // Business Types Widget is initiated here.
 
-var newBusTypesChart = busTypesChart(390, 100);
+var newBusTypesChart = tagCloudChart(390, 100);
 
 var myinit = function () {
     window.panorama = new google.maps.StreetViewPanorama(
@@ -97,8 +97,8 @@ function dataDidLoad(error, grid) {
 
     window.dataLst = Object.keys(grid[0])
     window.mydata = grid;
-    console.log(window.dataLst);
-
+    
+    //console.log(window.dataLst);
     //console.log(grid[25].other);
 
     charts(grid, selectedCharts);
@@ -590,7 +590,6 @@ function cellDisselect() {
     d3.select("#street_view").style("position", "relative");
     d3.select("#street_view").style("display", "none");
 
-
     newBusTypesChart.assignSelect(false);
     newBusTypesChart.updateBusTypes(window.typesData);
 }
@@ -638,7 +637,6 @@ if (currentCity_o == "LA"){
     //window.busi_openingChart = dc.barChart("#business_opening")
     window.busPriChart = dc.barChart("#business_price")
 
-
 }
 
 function charts(data, selectedCharts) {
@@ -681,8 +679,9 @@ function charts(data, selectedCharts) {
         d.entertainment = +d.entertainment ? +d.entertainment : 0; 
         d.finance = +d.finance ? +d.finance : 0; 
         d.food = +d.food ? +d.food : 0; 
-        d.health = +d.health ? +d.health : 0; 
-        d.nightclub = +d.office ? +d.office : 0; 
+        d.health = +d.health ? +d.health : 0;
+        d.nightclub = +d.nightclub ? +d.nightclub : 0;
+        d.office = +d.office ? +d.office : 0; 
         d.other = +d.other ? +d.other : 0; 
         d.public_use = +d.public_use ? +d.public_use : 0; 
         d.recreation = +d.recreation ? +d.recreation : 0; 
@@ -742,8 +741,6 @@ function charts(data, selectedCharts) {
             });
         }
     });
-
-    console.log(typeSums);
 
     window.typesData = typeSums;
     
