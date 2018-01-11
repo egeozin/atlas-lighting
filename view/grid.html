@@ -9,7 +9,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
 
   <!-- <script src="d3.tip.js"></script> -->
-  <!--	<script src="../scripts/lib/bootstrap.min.js"></script>  
+  <!--  <script src="../scripts/lib/bootstrap.min.js"></script>  
 -->
 
   <!-- <link href='mapbox-gl.css' rel='stylesheet' />
@@ -34,7 +34,10 @@
   <link href='../scripts/lib/mapbox.css' rel='stylesheet' />
   <link href='https://fonts.googleapis.com/css?family=Dosis:500,300|Ropa+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="../scripts/lib/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/custom_bubble.css"> </style>     
   <link rel="stylesheet" type="text/css" href="../stylesheets/atlas.css"> </style>
+  <link rel="shortcut icon" href="../icons/favicon_2.png">
+
 </head>
 
 <body>
@@ -43,8 +46,8 @@
       <div id="title"><a href="../index.html"><span style="color:#fff">ATLAS of LIGHTING</span> </a><sup><small><i>beta</i></small></sup></div>
 
       <div id="moreinfo">
-        <a href="../index.html">HOME</a> |
-        <a href="../about.html">ABOUT</a>
+        <a href="../about.html">ABOUT</a>&nbsp | &nbsp 
+        <a href="../case.html">CASE STUDY</a>  &nbsp 
       </div>
 
       <div id="logos">
@@ -53,254 +56,44 @@
         <a href="http://cau.mit.edu/" target="_blank"><img src="../logos/cau.jpg" style="height:30px "></a>
       </div>
     </div>
+
     <div id="loader">
       <div id="loader-text">
         Loading data for
-        <p id="nowmsa"></p>...
+        <p id="nowmsa"></p><img id="loader_small" src="../icons/Loading.gif">
         <br/><br/>
       </div>
     </div>
 
-    <!-- cases -->
-    <div id="cases" style="display:none">
-      <div id="centered">
-        <div id="frontpage-map"></div>
-      </div>
-    </div>
-    <!-- end cases -->
-
-    <div id="map"></div>
-    <div id="info" class="data_select_ui">
-
-      <div class = "fold_bar">
-        <img src="../icons/triangle_left.png" class="selector_arrow rightbar">
-      </div>
-
-      <!-- case info -->
-      <div id="case-info" style="display:none">
-        <div id="hide_cases"><img src="../icons/back.png" style="height:30px"> Close Case Studies</div>
-        <div id="text" class="content">
-          <br/><br/>
-          <div id="city-title" class="title2">
-
-            <div class="btn-group" data-toggle="buttons">
-              <div class="overviewby">COMPARE MSAS</div><br/>
-              <form>
-                <label class="radio" id="mapB">
-                       <input type="radio" name="options"  checked="checked"><img src="../icons/usa.png" style="height:15px "> Map &nbsp;&nbsp;</label>
-                <label class="radio" id="msaB">
-                      <input type="radio" name="options" id="msaB"> <img src="../icons/bubble.png" style="height:15px "> Chart &nbsp;&nbsp;</label>
-                <!-- <label class="radio" id="group">
-                       <input type="radio" name="options"> LIGHTING AND INCOME &nbsp;&nbsp;</label>-->
-              </form>
-            </div>
-          </div>
-
-          <div class="dropdownPrompt">METHODOLOGY</div>
-          <div id="index-text">
-            <p>In order to select geographically diverse and economically vibrant set of U.S. cities to best represent the variation
-              of urbanized areas in the country, the team conducted a selection process. Typically, research at this scale
-              focuses on the top 100 MSAs (Metropolitan Statistical Area) by population. This convenient metric accounts
-              for a large portion of the nation’s populous and economy. The research uses one primary cutoff (population)
-              and several factors (pop. growth, pop.-weighted density, and Gross Metropolitan Product) to sort the list of
-              potential MSAs for further study.</p>
-            <p>The plot helps reveal a system of MSAs that separate into at least five identifiable groups. The following 5
-              selection sets will serve as the primary source of the final selection to be determined by data compatibility/availability
-              (see plot figure for full groups). The sets were determined by selecting the highest, lowest, and the median
-              2010 population-weighted density MSA from each group (listed in that order below). The MSA with a density next
-              closest to the median was chosen as the alternate... <a href="about.html">read more</a></p>
-          </div>
-        </div>
-        <div id="bubble-key">
-          <div class="dropdownPrompt"> MSA CATEGORIES</div>
-        </div>
-      </div>
-      <!-- end case info -->
-
-      <!-- map info -->
-      <div id="map-info">
-        <div id="view-selection" class="icons">
-        </div>
-
-        <div id="text" class="content">
-          <div class="dc-data-count">
-            <span class="filter-count"></span> selected out of <span class="total-count">
-              </span> areas | <a href="javascript:dc.filterAll(); dc.redrawAll();">Reset All</a>
-          </div>
-
-          <div id="light_average" class="lock">
-            <div class="chart-title">LIGHTING AVERAGE
-              <span class="source">
-                <a class="reset" href="javascript:ligAveChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-              </span>
-            </div>
-            <p id="light_digits">___</p>
-          </div>
-
-          <div id="income">
-            <div class="chart-title">MEDIAN HOUSEHOLD INCOME
-              <span class="source">
-                <a class="reset" href="javascript:incomeChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="development_intensity">
-            <div class="chart-title">DEVELOPMENT INTENSITY
-              <span class="source">
-                <a class="reset" href="javascript:devIntChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-
-          <div id="population">
-            <div class="chart-title">POPULATION
-              <span class="source">
-                <a class="reset" href="javascript:populationChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-
-          <div id="business_diversity">
-            <div class="chart-title">BUSINESS DIVERSITY
-              <span class="source">
-                <a class="reset" href="javascript:busDivChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="business_price">
-            <div class="chart-title">BUSINESS PRICE
-              <span class="source">
-                <a class="reset" href="javascript:busPriChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="places">
-            <div class="chart-title">PLACE DENSITY
-              <span class="source">
-                <a class="reset" href="javascript:placesChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="ins">
-            <div class="chart-title">INSTAGRAM DENSITY
-              <span class="source">
-                <a class="reset" href="javascript:insChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="ins_likes">
-            <div class="chart-title">INSTAGRAM LIKES
-              <span class="source">
-                <a class="reset" href="javascript:insLikesChart.filterAll();dc.redrawAll();" 			style="display: none;">RESET </a>
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <p id="" class = "plc_digits">___</p>
-          </div>
-
-          <div id="business_opening" class = "dc-chart">
-            <div class="chart-title">BUSINESS OPENING HOURS
-              <span class="source">
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-
-            <p id = "selected_time" class = "plc_digits">0 - 24</p>
-
-          </div>
-
-          <div id="business_types" class = "dc-chart bus-types">
-            <div class="chart-title">BUSINESS TYPES
-              <span class="source">
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-          </div>
-
-
-          <div id="street_view" class="extra_data dc-chart">
-            <div class="chart-title">GOOGLE STREET VIEW
-              <span class="source">
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-            <img src="../icons/placeholder_streetview2.png" id = "street_view_plc">
-            <div id="streetview_window"></div>
-          </div>
-
-
-
-          <div id="instagram_pics" class="extra_data dc-chart">
-            <div class="chart-title">INSTAGRAM POSTS
-              <span class="source">
-                <span class = "rm_data">| x</span>
-              </span>
-            </div>
-          <img src="../icons/placeholder_instagram2.png" id = "instagram_plc">
-          </div>
-
-          <div class="data_select_ui" id="todrop">
-            <div class="drop_indi">Drop Selection Here</div>
-          </div>
-
-          <div id="export">
-            <p id="export_btn" class="mybtn">EXPORT</p>
-            <div id="export_add">
-              <input type="text">
-              <p class="mybtn" id="cp_btn">COPY</p>
-              <p class="mybtn" id="bk_btn">BACK</p>
-
-              <a href="" id="exportcsv">Download</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end map info -->
-    </div>
-
+    <!--  LEFT SIDE PANEL -->
     <div id="selector" class="data_select_ui">
       <div class="left_back"></div>
-      <div class="left_clickbar datasets click_data slide_hide selectedTab">
+      <div class="left_clickbar datasets click_data slide_hide selectedTab"> 
+        <div id="tab-name">DATASETS </div>
         <img src="../icons/triangle_left.png" class="selector_arrow">
       </div>
-      <div class="left_clickbar case_studies click_case slide_hide">
+      <!--  <div class="left_clickbar case_studies click_case slide_hide"> 
+        <div id="tab-name-2">CASE STUDIES </div>
         <img src="../icons/triangle_left.png" class="selector_arrow">
+      </div> -->
+      <div class="gradient_container"></div>
+      <div class="zoom_icons">
+        <button id="zoomIn"></button>
+        <button id="zoomOut"></button>
       </div>
-
       <div id="datasets">
         <div class="data_filters">
           <div id="city-title city-title-grid" class="title2 city-title-grid">
             <div class="dropdown">
-              <button onclick="myFunction()" class="dropbtn" id="nowmsa"><img src="../icons/arrow_down.png" style="width:10px"> CHICAGO-JOLIET-NAPERVILLE,IL-IN-WI</button>
+              <button onclick="myFunction()" class="dropbtn" id="nowmsa"><img src="../icons/arrow_down.png"> CHICAGO-JOLIET-NAPERVILLE,IL-IN-WI</button>
               <div id="myDropdown" class="dropdown-content">
-                <a href="javascript:window.location.assign('grid.html#Chicago');window.location.reload();">CHICAGO-JOLIET-NAPERVILLE,IL-IN-WI</a>
+                <a href="javascript:window.location.assign('grid.html#Chicago');window.location.reload();">CHICAGO-JOLIET-NAPERVILLE,IL-IN-WI</a> 
                 <a href="javascript:window.location.assign('grid.html#LA');window.location.reload();">LOS ANGELES-LONG BEACH-SANTA ANA, CA</a>
-<!--                <a href="javascript:window.location.assign('grid.html#Pittsburgh');window.location.reload();">PITTSBURGH, PA</a>
+                <a href="javascript:window.location.assign('grid.html#Pittsburgh');window.location.reload();">PITTSBURGH, PA</a>
                 <a href="javascript:window.location.assign('grid.html#Sanjose');window.location.reload();">SAN JOSE-SUNNYVALE-SANTA CLARA, CA</a>
-                <a href="javascript:window.location.assign('grid.html#Denver');window.location.reload();">DENVER-AURORA-BROOMFIELD, CO</a>
--->              
+                <a href="javascript:window.location.assign('grid.html#Denver');window.location.reload();">DENVER-AURORA-BROOMFIELD, CO</a>              
               </div>
+              <img src="../icons/arrow_down.png" style="width:7px; position: relative; left: 298px; opacity: 0.8;">
             </div>
           </div>
 
@@ -314,107 +107,461 @@
           </div>
         </div>
 
-        <div class="data_item ui-widget-content tag_dem" id="d_population">
-          <p class="data_item_title">POPULATION</p>
-          <img src="../icons/data_icon/population.jpg" class = "data_icon">
-          <p class = "data_intro">Population density is the measure of the number people per unit area, commonly represented as people per square mile. Source: 2010 - 2014 ACS - 5 Year Estimate</p>
-
-        </div>
-        <div class="data_item ui-widget-content tag_dem" id="d_income">
-          <p class="data_item_title">INCOME</p>
-          <img src="../icons/data_icon/income.jpg" class = "data_icon">
-          <p class = "data_intro">Household income is a measure of the combined incomes of all people sharing a particular household or place of residence. Source: 2010 - 2014 ACS - 5 Year Estimate</p>
-
-        </div>
+        <!-- ************************************************************** Business filters **************************************************************-->
+        
         <div class="data_item ui-widget-content tag_bus" id="d_business_diversity">
-          <p class="data_item_title">BUSINESS DIVERSITY</p>
-          <img src="../icons/data_icon/business_diversity.jpg" class = "data_icon">
-          <p class = "data_intro">Diversity of business types in a grid cell. Source: Google Places API</p>
+          <p class="data_item_title">BUSINESS TYPE DIVERSITY</p>
+          <img src="../icons/final_icons/busDiversity.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Provides an index value representing the diversity of business types in a grid cell, which increases with business density and variety of business types, using the Google Places classifications. <span class="source"> Source: Google Places API</span></p>
         </div>
+                
         <div class="data_item ui-widget-content tag_bus" id="d_business_price">
-          <p class="data_item_title">BUSINESS PRICE</p>
-          <img src="../icons/data_icon/business_price.jpg" class = "data_icon">
-          <p class = "data_intro">Average price of business in a grid cell. Source: Google Places API</p>
-        </div>
-        <div class="data_item ui-widget-content tag_dem" id="d_development_intensity">
-          <p class="data_item_title">DEVELOPMENT INTENSITY</p>
-          <img src="../icons/data_icon/development_intensity.jpg" class = "data_icon">
-          <p class = "data_intro">NLCD provides spatial reference and descriptive data for characteristics of the land surface such as low,medium and high intensity development. Source: National Land Cover Database 2011</p>
-
+          <p class="data_item_title">BUSINESS PRICE CATEGORY</p>
+          <img src="../icons/final_icons/busPrice.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates the average price level of a grid cell, using Google Places classifications. 0 — Free; 1 — Inexpensive; 2 — Moderate; 3 — Expensive; 4 — Very Expensive. <span class="source"> Source: Google Places API</span> </p>
         </div>
         <div class="data_item ui-widget-content tag_bus" id="d_places">
           <p class="data_item_title">BUSINESS DENSITY</p>
-          <img src="../icons/data_icon/places.jpg" class = "data_icon">
-          <p class = "data_intro">Total number of places in a grid cell. Source: Google Places API</p>
-
+          <img src="../icons/final_icons/busDensity.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates total number of Google Places in a grid cell, which includes businesses, institutions, parks, and other points of interest. <span class="source"> Source: Google Places API</span></p>
         </div>
-        <div class="data_item ui-widget-content tag_soc" id="d_ins">
-          <p class="data_item_title">INSTAGRAM DENSITY</p>
-          <img src="../icons/data_icon/ins.jpg" class = "data_icon">
-          <p class = "data_intro">Total number of Instagram posts in a grid cell. Source: Instagram API</p>
-
-        </div>
-        <div class="data_item ui-widget-content tag_bus" id="d_business_opening">
-          <p class="data_item_title">BUSINESS OPENING HOURS</p>
-          <img src="../icons/data_icon/business_opening.jpg" class = "data_icon">
-          <p class = "data_intro">Places open in a grid cell for a given time period. Source: Google Places API</p>
-
-        </div>
-
         <div class="data_item ui-widget-content tag_bus" id="d_business_types">
           <p class="data_item_title">BUSINESS TYPES</p>
-          <!-- <img src="../icons/data_icon/business_opening.jpg" class = "data_icon"> -->
-          <p class = "data_intro">Type of businesses open in a grid cell for a given time period. Source: Google Places API</p>
-
+          <img src="../icons/final_icons/busTypes.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates the types of the local businesses in a grid cell, using Google Places classifications. <span class="source"> Source: Google Places API</span></p>
         </div>
+        <div class="data_item ui-widget-content tag_bus" id="d_business_opening_percent">
+          <p class="data_item_title">OPENING HOUR INDEX</p>
+          <img src="../icons/final_icons/busOBI.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates the percentage and the average number of businesses that are open per hour in a given period of time in a grid cell. <span class="source"> Source: Google Places API</span></p>
+        </div>
+        <div class="data_item ui-widget-content" id="d_business_opening_average" style="display: none">
+          <p class="data_item_title">AVERAGE NUMBER OF BUSINESSES OPEN</p>
+          <img src="../icons/final_icons/busOBI.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Average number of businesses open for a given time period. Source: Google Places API</p>
+        </div>        
+        <!-- ************************************************************** Dem filters **************************************************************-->
 
-        <div class="data_item ui-widget-content tag_soc" id="d_street_view">
+        <div class="data_item ui-widget-content tag_dem" id="d_development_intensity">
+          <p class="data_item_title">DEVELOPMENT INTENSITY</p>
+          <img src="../icons/final_icons/devIntensity.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates characteristics and classification of the land surface such as urban, agricultural, and forest, as well as percent impervious surface. <span class="source">Source: National Land Cover Database</span> </p>
+        </div>
+        <div class="data_item ui-widget-content tag_dem" id="d_population">
+          <p class="data_item_title">POPULATION DENSITY</p>
+          <img src="../icons/final_icons/popDensity.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates the number people in a given unit area, commonly represented as population per square mile. <span class="source">Source: ACS 5 Year Estimates</span> </p>
+        </div>
+        <div class="data_item ui-widget-content tag_dem" id="d_income">
+          <p class="data_item_title">HOUSEHOLD MEDIAN INCOME</p>
+          <img src="../icons/final_icons/medianIncome.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates the median value of the combined incomes of people sharing a household or place of residence. Census block group values are redistributed to each grid cell using ArcGIS. <span class="source">Source: ACS 5 Year Estimates</span></p>
+        </div>        
+        <!-- ************************************************************** Social filters **************************************************************-->
+        <div class="data_item ui-widget-content" id="d_street_view" style="display:none">
           <p class="data_item_title">GOOGLE STREET VIEW</p>
-          <img src="../icons/data_icon/street_view.jpg" class = "data_icon">
-          <p class = "data_intro">Source: Google Street View API</p>
-
+          <img src="../icons/final_icons/googleStreet.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Provides 360-degree, panoramic, and street-level imagery from the centroid point in a selected grid cell. <span class="source"> Source: Google Street View API </span></p>
         </div>
-        <div class="data_item ui-widget-content tag_soc" id="d_instagram_pics">
+        <div class="data_item ui-widget-content tag_soc" id="d_ins">
+          <p class="data_item_title">INSTAGRAM POST DENSITY</p>
+          <img src="../icons/final_icons/instaDensity.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates total number of Instagram posts geo-tagged in a grid cell. <span class="source">Source: Instagram API</span> </p>
+        </div>        
+        <div class="data_item ui-widget-content" id="d_instagram_pics" style="display:none">
           <p class="data_item_title">INSTAGRAM POST THUMBNAILS</p>
-          <img src="../icons/data_icon/instagram_pics.jpg" class = "data_icon">
-          <p class = "data_intro">Instagram posts in a grid cell. Source: Instagram API</p>
-
+          <img src="../icons/final_icons/instaThumbnails.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Provides a collection of Instagram media thumbnails in a selected grid cell. <span class="source">Source: Instagram API</span></p>
         </div>
         <div class="data_item ui-widget-content tag_soc" id="d_ins_likes">
-          <p class="data_item_title">INSTAGRAM LIKES</p>
-          <img src="../icons/data_icon/ins_likes.jpg" class = "data_icon">
-          <p class = "data_intro">Instagram likes in a grid cell. Source: Instagram API</p>
-
+          <p class="data_item_title">INSTAGRAM LIKES DENSITY</p>
+          <img src="../icons/final_icons/instaLikes.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Indicates total number of all the likes that are attached to Instagram posts geo-tagged in a grid cell. <span class="source">Source: Instagram API</span></p>
         </div>
-
-
+        
+        <div class="data_item ui-widget-content tag_soc" id="d_instagram_topics">
+          <p class="data_item_title">INSTAGRAM CONTENT TOPICS</p>
+          <img src="../icons/final_icons/instaTopics.png" class = "data_icon">
+          <img src="../icons/final_icons/info.png" class = "data_icon_handle">
+          <p class = "data_intro">Provides a collection of topics that describe the content of Instagram media, using machine learning tools from the Google Vision API. <span class="source">Source: Google Vision API</span></p>
+        </div>
       </div>
 
-      <div id="case_studies" style="display:none">
+      <!-- <div id="case_studies" style="display:none">
         <div class="data_item" id="case_study_1">
           <p class="data_item_title">CASE STUDIES 1: CHICAGO</p>
+        </div> 
+        <div class="data_item" id="case_study_2" style="height:120px; display: none;">
+          <p class="data_item_title">CASE STUDIES 1:  <br/>
+            <span style="font-size:17px">LIGHT USE IN DIFFERENT INCOME GROUPS</span><br/>
+            <i>This case study examines the relationship between economic conditions of urban areas and their average radiance of artificial light at night.</i></p>
+        </div>
+      </div> -->
+    </div>
+
+
+    <!-- MAP -->
+    <div id="map"></div>
+
+
+    <!-- RIGHT PANEL -->
+    <div id="info" class="data_select_ui">
+      <div class = "fold_bar selectedTab">
+        <div id="tab-name">REGIONAL VIEW </div>
+        <img src="../icons/triangle_left.png" class="selector_arrow rightbar">
+      </div>
+      <div class="right_clickbar click_case_right slide_hide_right"> 
+        <div id="tab-name" style="top: 15%">CELL VIEW </div>
+        <img src="../icons/triangle_left.png" class="selector_arrow rightbar">
+      </div>
+
+      <!-- case info -->
+      <div id="report-info" style="display: none">
+        <div class="chart-title" >CELL VIEW</div>
+        <div id="report-text" style="display: none">
+          <p>AVERAGE NIGHT LIGHT INTENSITY <span id="report-text-light" class="report-text-value"></span>  </p>
+          <p>BUSINESS DIVERSITY <span id="report-text-diversity" class="report-text-value"></span> </p> 
+          <p>BUSINESS PRICE  <span id="report-text-price" class="report-text-value"></span></p>
+          <p>BUSINESS DENSITY  <span id="report-text-density" class="report-text-value"></span></p>
+          <p>TOP 3 BUSINESS TYPES  <span id="report-text-types" class="report-text-value"></span></p>
+          <p>PERCENTAGE OF OPEN BUSINESSES FROM 6AM TO 6PM <span id="report-text-OBIpercent" class="report-text-value"></span> </p>
+          <p>AVERAGE NUMBER OF OPEN BUSINESSES FROM 6AM TO 6PM  <span id="report-text-OBIaverage" class="report-text-value"></span></p>
+          <p>DEVELOPMENT INTENSITY  <span id="report-text-dev" class="report-text-value"></span></p>
+          <p>POPULATION  <span id="report-text-population" class="report-text-value"></span></p>
+          <p>MEDIAN HOUSEHOLD INCOME  <span id="report-text-income" class="report-text-value"></span></p>
+          <p>INSTAGRAM DENSITY  <span id="report-text-insta-density" class="report-text-value"></span></p>
+          <p>INSTAGRAM LIKES  <span id="report-text-insta-likes" class="report-text-value"></span></p>
+          <p>TOP 3 INSTAGRAM TOPICS  <span id="report-text-insta-topics" class="report-text-value"></span></p>
+          <p>GOOGLE STREET VIEW
+            <div id="street_view" class="extra_data">
+              <div> <span class="source"> </span> </div>
+              <div id="frame_for_streets">
+                <div id="streetview_window"></div>
+                <img src="../icons/placeholder_streetview2.png" id = "street_view_plc">
+              </div>
+            </div>
+          </p> 
+          <p>INSTAGRAM THUMBNAILS
+            <div id="instagram_pics" class="extra_data">
+              <div> <span class="source"> </span> </div>
+              <div id="frame_for_instas">
+              <img src="../icons/placeholder_instagram2.png" id = "instagram_plc">
+              </div>
+            </div>
+          </p> 
+        </div>
+        <div id="report-message">
+          Please select a cell 
         </div>
       </div>
+
+      <!-- graphs -->
+      <div id="map-info">
+        <div id="view-selection" class="icons">
+        </div>
+
+        <div id="text" class="content">
+
+          <div id=all_charts>
+
+          <div id="light_average" class="lock">
+            <div class="chart-title">NIGHT LIGHT INTENSITY
+              <span class="source">
+                <a class="reset" href="javascript:ligAveChart.filterAll();dc.redrawAll();" style="display: none;">RESET </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="light_digits">LOW</p>
+                <div class="second_digits"><p id="light_digits_o">100</p></div>
+                <div class="third_digits" id="light_third">NANOWATTS/cm<sup>2</sup>/sr</div>
+                <!-- <div class="cell_digits" id="cell_first">A cell is selected</div> -->
+              </div>
+            </div>
+          </div>
+
+        <!-- ************************************************************** Business filters **************************************************************-->
+          <div id="business_diversity">
+            <div class="chart-title chart-title-collapsible">
+              <span class="toggle-title"> <img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator"> BUSINESS DIVERSITY</span>
+              <span class="source">
+                <a class="reset" href="javascript:busDivChart2.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:busDivChart.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="busDiv_digits">MEDIUM</p>
+                <div class="second_digits"><p id="busDiv_digits_o">100</p></div>
+                <div class="third_digits">BUSINESSES</div>
+              </div>
+            </div>
+          </div>
+          <div id="business_price">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">BUSINESS PRICE</span>
+              <span class="source">
+                <a class="reset" href="javascript:busPriChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:busPriChart.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="busPri_digits">100</p>
+                <div class="second_digits"><p id="busPri_digits_o">PRICE&nbsp;LEVEL</p></div>
+              </div>
+            </div>
+          </div>      
+          <div id="places">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">BUSINESS DENSITY</span>
+              <span class="source">
+                <a class="reset" href="javascript:placesChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:placesChart.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="places_digits">MEDIUM</p>
+                <div class="second_digits"> <p id="places_digits_o">100</p></div>
+                <div class="third_digits">BUSINESSES</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="business_types" class = "dc-chart bus-types">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">BUSINESS TYPES</span>
+              <span class="source">
+                <a><span class = "rm_data"> x</span></a>
+              </span>
+            </div>
+          </div>
+
+          <div id="business_opening_percent">
+            <div class="chart-title">
+            <span class="toggle-title" style="font-size: 12px"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">PERCENTAGE OF BUSINESSES OPEN FOR SELECTED TIME</span>
+              <span class="source">
+                <a class="reset" href="javascript:OBIpercent.filterAll();dc.redrawAll();" style="display: none;">RESET </a>
+                <a href="javascript:OBIpercent.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div id="time_selector" >
+                <p id = "selected_time" class = "plc_digits">6:00 - 18:00</p> <!-- 0 - 24 -->
+                <!-- <p><span id="selected_time_AM">AM</span><span id="selected_time_PM">PM</span></p> -->
+                <!-- <a id="timeSelectorReset" class="reset" href="javascript:timeSelectorReset();" style="opacity: 0;">RESET TIME RANGE</a> -->
+            </div>
+            <div class="digits">
+              <div class="first_digits"><p id="OBIpercent_digits"></p>
+                <div class="second_digits" id="OBIpercent_digits_o">CELLS</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="business_opening_average">
+            <div class="chart-title">
+            <span class="toggle-title" style="font-size: 12px"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">AVERAGE NUMBER OF BUSINESSES OPEN FOR SELECTED TIME</span>
+              <span class="source">
+                <a class="reset" href="javascript:OBIaverage.filterAll();dc.redrawAll();" style="display: none;">RESET </a>
+               </span>
+            </div>
+            <div class="digits">
+              <!-- <p class="explain_digits">AVERAGE VALUE</p> -->
+              <div class="first_digits"><p id="OBIaverage_digits"></p>
+                <div class="second_digits" id="OBIaverage_digits_o">CELLS</div>
+              </div>
+            </div>
+          </div>
+
+
+        <!-- ************************************************************** Dem filters **************************************************************-->
+          <div id="development_intensity">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">DEVELOPMENT INTENSITY</span>
+              <span class="source">
+                <a class="reset" href="javascript:devIntChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:devIntChart.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="devInt_digits">MEDIUM</p>
+                <div class="second_digits"> <p id="devInt_digits_o">100</p></div>
+                <div class="third_digits">
+                  <p id="devInt_fourth">IMPERVIOUS SURFACES / TOTAL AREA</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="population">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">POPULATION DENSITY</span>
+              <span class="source">
+                <a class="reset" href="javascript:populationChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:populationChart.filterAll();dc.redrawAll();"      ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="pop_digits">MEDIUM</p>
+                <div class="second_digits"><p><span id="pop_digits_o">100</span><!-- K --></p></div>
+                <div class="third_digits">PEOPLE PER ACRE</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="income">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">MEDIAN HOUSEHOLD INCOME</span>
+              <span class="source">
+                <a class="reset" href="javascript:incomeChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:incomeChart.filterAll();dc.redrawAll();"  ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="income_digits">LOW</p>
+                <div class="second_digits"><p id="income_digits_o">100</p></div>
+                <div class="third_digits">DOLLARS</div>
+              </div>
+            </div>
+          </div>
+
+
+        <!-- ************************************************************** Social media filters **************************************************************-->
+          <div id="street_view" class="extra_data dc-chart">
+            <div class="chart-title chart-title-collapsible"><span class="toggle-title">GOOGLE STREET VIEW</span>
+              <span class="source">
+                <a><span class = "rm_data"> x</span></a>
+              </span>
+            </div>
+            <div id="frame_for_streets">
+              <div id="streetview_window"></div>
+              <img src="../icons/placeholder_streetview2.png" id = "street_view_plc">
+              <img src="../icons/select_streetview.png" id = "street_view_plc0">
+            </div>
+          </div>
+
+          <div id="ins">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">INSTAGRAM DENSITY</span>
+              <span class="source">
+                <a class="reset" href="javascript:insChart.filterAll();dc.redrawAll();"       style="display: none;">RESET </a>
+                <a href="javascript:insChart.filterAll();dc.redrawAll();"><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="instaDen_digits">100</p>
+                <div class="second_digits" id="instaDen_digits_o">POSTS</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="instagram_topics" class = "dc-chart insta-types">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">INSTAGRAM CONTENT TOPICS</span>
+              <span class="source">
+                <a><span class = "rm_data"> x</span></a>
+              </span>
+            </div>
+          </div>
+
+          <div id="ins_likes">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">INSTAGRAM LIKES</span>
+              <span class="source">
+                <a class="reset" href="javascript:insLikesChart.filterAll();dc.redrawAll();"      style="display: none;">RESET </a>
+                <a href="javascript:insLikesChart.filterAll();dc.redrawAll();" ><span class = "rm_data"> x</span> </a>
+              </span>
+            </div>
+            <div class="digits">
+              <p class="explain_digits">AVERAGE VALUE</p>
+              <div class="first_digits"><p id="instaLikes_digits">100</p>
+                <div class="second_digits"><p id="instaLikes_digits_o">LIKES</p></div>
+                <div class="fourth_digits" id="insta_explain">A cell is selected</div>
+              </div>
+            </div> 
+          </div>
+
+          <div id="instagram_pics" class="extra_data dc-chart">
+            <div class="chart-title chart-title-collapsible">
+            <span class="toggle-title"><img src="../icons/final_icons/arrow_collapse.png" id="collapseIndicator">INSTAGRAM ACTIVITY</span>
+              <span class="source">
+                <a><span class = "rm_data"> x</span></a>
+              </span>
+            </div>
+            <div id="frame_for_instas">
+            <img src="../icons/placeholder_instagram2.png" id = "instagram_plc">
+            <img src="../icons/select_instagram2 copy.png" id = "instagram_plc0">
+            </div>
+          </div>
+          
+          </div>
+
+        <!-- ************************************************************** Drop zone **************************************************************-->
+          <div class="data_select_ui" id="todrop">
+            <div class="drop_indi">DRAG A DATASET TO UPLOAD</div>
+            <img src="../icons/final_icons/drop.png">
+          </div>
+
+          <div class="dc-data-count">
+            <span id="filter_count" class="filter-count"></span> selected out of <span id="total_count" class="total-count">
+              </span> areas | <a href="javascript:dc.filterAll(); dc.redrawAll();">Reset All</a>
+          </div>
+
+          <div id="export_outer">
+            <div id="export">
+              <p id="export_btn" class="mybtn"> <img src="../icons/final_icons/export.png"> EXPORT</p>
+              <div id="export_add">
+                <input type="text">
+                <p class="mybtn" id="cp_btn">COPY</p>
+                <p class="mybtn" id="bk_btn">BACK</p>
+                <a href="" id="exportcsv">Download</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
     </div>
 
 
 
+
   </div>
-  <script src="../scripts/grid_loader.js"></script>
 
   <script src="../scripts/city_comparisons_data.js"></script>
   <script src="../scripts/city_dropdown.js"></script>
+  <!-- <script src="../scripts/front_page_map_2.js"></script> -->
 
-  <script src="../scripts/business_types_chart.js"></script>
+  <script src="../scripts/atlas_utility.js"></script>
+  <script src="../scripts/tag_cloud_chart.js"></script>
+  <script src="../scripts/control.js"></script>
   <script src="../scripts/grid_map.js"></script>
   <script src="../scripts/filter_rollovers.js"></script>
 
   <script src="../scripts/underscore.js"></script>
-  <script src="../scripts/front_page_text.js"></script>
-  <script src="../scripts/front_page_map_2.js"></script>
 
-
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM59LWQXfxJzh06UPYicEM9Ro6RRFCHQc&callback=myinit"></script>
+  <!--
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM59LWQXfxJzh06UPYicEM9Ro6RRFCHQc&callback=myinit"></script> -->
+   
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnjymTVxXFawXt75rNdBahquCCa_-iR3U&callback=myinit"></script>
 
 </body>
 
